@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITC 505 - Lab 6</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            display: grid;
+            grid-template-columns: 250px 1fr 300px;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "header header header"
+                "menu main ad"
+                "footer footer footer";
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background-color: #f1f1f9; /* Pastel light blue background */
+            padding: 20px;
+        }
+
+        header {
+            grid-area: header;
+            background-color: #c7e4e9; /* Pastel blue for header */
+            color: #3e4a5d; /* Dark gray for text */
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        nav {
+            grid-area: menu;
+            background-color: #f7e8f0; /* Pastel pink background for menu */
+            padding: 20px;
+            border-right: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        nav h3 {
+            margin-bottom: 10px;
+            color: #3e4a5d; /* Dark gray for the heading */
+        }
+
+        nav ul {
+            list-style-type: none;
+        }
+
+        nav li {
+            margin-bottom: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #7d8b98; /* Muted pastel blue-gray for links */
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #ffabac; /* Soft pastel coral on hover */
+        }
+
+        .main-content {
+            grid-area: main;
+            padding: 20px;
+            background-color: #ffffff; /* White background for main content */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .ad {
+            grid-area: ad;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .ad img {
+            max-width: 45%;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        footer {
+            grid-area: footer;
+            background-color: #c7e4e9; /* Pastel blue for footer */
+            color: #3e4a5d; /* Dark gray text */
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        /* Styling for button and input elements */
+        button, input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #b7d8b8; /* Pastel green for buttons */
+            color: #3e4a5d; /* Dark text on pastel buttons */
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #a2d3a1; /* Lighter pastel green on hover */
+        }
+
+        input {
+            width: 100%;
+            max-width: 250px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #f9f9f9; /* Light pastel beige for input */
+        }
+
+        /* Feedback message */
+        #feedback {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Scroll and smooth transitions */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Interactive Webpage - ITC 505 Lab 6</h1>
+    </header>
+
+    <!-- Menu Sidebar -->
+    <nav>
+        <h3>Menu</h3>
+        <ul>
+            <li><a href="#home" onclick="showSection('home')">Home</a></li>
+            <li><a href="#about" onclick="showSection('about')">About</a></li>
+            <li><a href="#services" onclick="showSection('services')">Services</a></li>
+            <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <section id="home" class="main-content">
+        <h2>JavaScript Problem: Number Guessing Game</h2>
+        <p>Guess a number between 1 and 10:</p>
+        <input type="number" id="userGuess" placeholder="Enter your guess" min="1" max="10">
+        <button onclick="checkGuess()">Submit Guess</button>
+        <p id="feedback"></p>
+    </section>
+
+    <section id="about" class="main-content" style="display: none;">
+        <h2>About Us</h2>
+        <p>We are a tech company providing services to enhance user experiences.</p>
+    </section>
+
+    <section id="services" class="main-content" style="display: none;">
+        <h2>Our Services</h2>
+        <ul>
+            <li>Web Development</li>
+            <li>App Development</li>
+            <li>Cloud Solutions</li>
+        </ul>
+    </section>
+
+    <section id="contact" class="main-content" style="display: none;">
+        <h2>Contact Us</h2>
+        <p>Email: contact@techcompany.com</p>
+        <p>Phone: +123 456 7890</p>
+    </section>
+
+    <!-- Advertisement -->
+    <section class="ad">
+        <h2>Buy These Amazing Products!</h2>
+        <a href="https://www.amazon.com" target="_blank">
+            <img src="https://m.media-amazon.com/images/G/01/social_share/amazon_logo._CB635397845_.png" alt="Amazon Ad">
+        </a>
+        <a href="https://www.flipkart.com" target="_blank">
+            <img src="https://1000logos.net/wp-content/uploads/2021/02/Flipkart-logo.png" alt="Flipkart Ad">
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Last updated: <span id="lastModified"></span></p>
+    </footer>
+
+    <script type="text/javascript">
+        // Display the last updated date dynamically
+        var x = document.lastModified;
+        document.getElementById('lastModified').textContent = x;
+
+        // JavaScript for the number guessing game
+        const targetNumber = Math.floor(Math.random() * 10) + 1;  // Random number between 1 and 10
+
+        function checkGuess() {
+            const userGuess = document.getElementById("userGuess").value;
+            const feedback = document.getElementById("feedback");
+
+            if (userGuess == targetNumber) {
+                feedback.textContent = "Congratulations! You guessed correctly!";
+                feedback.style.color = "green";
+            } else if (userGuess < targetNumber) {
+                feedback.textContent = "Too low! Try again.";
+                feedback.style.color = "red";
+            } else if (userGuess > targetNumber) {
+                feedback.textContent = "Too high! Try again.";
+                feedback.style.color = "red";
+            } else {
+                feedback.textContent = "Please enter a valid number.";
+                feedback.style.color = "orange";
+            }
+        }
+
+        // Function to show the correct section when a menu item is clicked
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.main-content');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+
+            // Show the selected section
+            const selectedSection = document.getElementById(sectionId);
+            selectedSection.style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
+
